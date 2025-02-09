@@ -92,12 +92,12 @@ def main():
 
     # updateSconstruct()
     sconstructPath = os.path.join(srcPath, "SConstruct")
-    sconstructPattern = "point\=[\d]+"
+    sconstructPattern = "point="
     updateBuildNumber(sconstructPath, sconstructPattern, buildNumber)
 
     # updateVersion()
     versionPath = os.path.join(srcPath, "VERSION")
-    versionPattern = "ADLMSDK_VERSION_POINT=[\d]+"
+    versionPattern = "ADLMSDK_VERSION_POINT="
     updateBuildNumber(versionPath, versionPattern, buildNumber)
 
 
