@@ -69,7 +69,7 @@ def updateVersion():
 def updateBuildNumber(path, pattern, buildNum):
     # Update the build number in the file at `path` with `buildNum` located at the line matching `pattern`
 
-    tmp_path = os.path.join(path, ".tmp")
+    tmp_path = path + ".tmp"
 
     os.chmod(path, 0755)
     fin = open(path, 'r')
