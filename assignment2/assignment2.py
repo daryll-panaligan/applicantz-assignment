@@ -77,7 +77,7 @@ def updateBuildNumber(path, pattern, buildNum):
     fin = open(path, 'r')
     fout = open(tmp_path, 'w')
     for line in fin:
-        line=re.sub("ADLMSDK_VERSION_POINT=[\d]+","ADLMSDK_VERSION_POINT="+os.environ["BuildNum"],line)
+        line = re.sub("ADLMSDK_VERSION_POINT=[\d]+", "ADLMSDK_VERSION_POINT=" + str(buildNum), line)
         fout.write(line)
     fin.close()
     fout.close()
