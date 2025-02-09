@@ -3,7 +3,7 @@ import re
 
 def reverse_words(input_str):
     # Match letters and digits only
-    reg = re.compile(r"[A-z0-9]+")
+    reg = re.compile(r"[A-Za-z\d]+")
     subs_to_be_reversed = reg.findall(input_str)
 
     print(subs_to_be_reversed)
