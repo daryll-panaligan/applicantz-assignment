@@ -27,6 +27,8 @@
 
 import os
 import re
+
+
 # SCONSTRUCT file interesting lines
 # config.version = Version(
 # major=15,
@@ -36,7 +38,7 @@ import re
 #)
 def updateSconstruct():
     # Update the build number in the SConstruct file
-    os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"), 0755)
+    os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"), 0o0755)
     fin = open(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"), 'r')
     fout = open(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct1"), 'w')
     for line in fin:
@@ -53,7 +55,7 @@ def updateSconstruct():
 def updateVersion():
     # Update the build number in the VERSION file
 
-    os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 0755)
+    os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 0o0755)
     fin = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 'r')
     fout = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION1"), 'w')
     for line in fin:
@@ -71,12 +73,12 @@ def updateBuildNumber(path, pattern, buildNum):
 
     tmp_path = path + ".tmp"
 
-    os.chmod(path, 0755)
+    os.chmod(path, 0o0755)
     fin = open(path, 'r')
     fout = open(tmp_path, 'w')
     for line in fin:
         line=re.sub("ADLMSDK_VERSION_POINT=[\d]+","ADLMSDK_VERSION_POINT="+os.environ["BuildNum"],line)
-    fout.write(line)
+        fout.write(line)
     fin.close()
     fout.close()
     os.remove(path)
