@@ -4,7 +4,7 @@ import re
 def reverse_words(input_str):
     # Match letters and digits only
     reg = re.compile(r"[A-Za-z\d]+")
-    subs_to_be_reversed = reg.findall(input_str)
+    subs_to_be_reversed = set(reg.findall(input_str))
 
     # Reverse each matching substring in input_str iteratively
     reversed_str = input_str
