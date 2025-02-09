@@ -75,13 +75,13 @@ def updateBuildNumber(path, pattern, buildNum):
     reg = re.compile(pattern + "[\\d]+")
 
     os.chmod(path, 0o0755)
-    fin = open(path, 'r')
-    fout = open(tmp_path, 'w')
-    for line in fin:
-        line = reg.sub(pattern + str(buildNum), line)
-        fout.write(line)
-    fin.close()
-    fout.close()
+
+    with open(path, 'r') as fin:
+        with open(tmp_path, 'w') as fout:
+            for line in fin:
+                line = reg.sub(pattern + str(buildNum), line)
+                fout.write(line)
+
     os.remove(path)
     os.rename(tmp_path, path)
 
