@@ -6,8 +6,6 @@ def reverse_words(input_str):
     reg = re.compile(r"[A-Za-z\d]+")
     subs_to_be_reversed = reg.findall(input_str)
 
-    print(subs_to_be_reversed)
-
     # Reverse each matching substring in input_str iteratively
     reversed_str = input_str
     for substr in subs_to_be_reversed:
