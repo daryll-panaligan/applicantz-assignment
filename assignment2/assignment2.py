@@ -35,35 +35,52 @@ import re
 # patch=0
 #)
 def updateSconstruct():
-    "Update the build number in the SConstruct file"
+    # Update the build number in the SConstruct file
     os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"), 0755)
     fin = open(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"), 'r')
     fout = open(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct1"), 'w')
     for line in fin:
-    line=re.sub("point\=[\d]+","point="+os.environ["BuildNum"],line)
-    fout.write(line)
+        line=re.sub("point\=[\d]+","point="+os.environ["BuildNum"],line)
+        fout.write(line)
     fin.close()
     fout.close()
     os.remove(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"))
     os.rename(os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct1"),
-os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"))
+        os.path.join(os.environ["SourcePath"],"develop","global","src","SConstruct"))
 
 # VERSION file interesting line
 # ADLMSDK_VERSION_POINT=6
 def updateVersion():
-    "Update the build number in the VERSION file"
+    # Update the build number in the VERSION file
 
     os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 0755)
     fin = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 'r')
     fout = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION1"), 'w')
     for line in fin:
-    line=re.sub("ADLMSDK_VERSION_POINT=[\d]+","ADLMSDK_VERSION_POINT="+os.environ["BuildNum"],line)
+        line=re.sub("ADLMSDK_VERSION_POINT=[\d]+","ADLMSDK_VERSION_POINT="+os.environ["BuildNum"],line)
     fout.write(line)
     fin.close()
     fout.close()
     os.remove(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"))
     os.rename(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION1"),
     os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"))
+
+
+def updateBuildNumber(path, pattern, buildNum):
+    # Update the build number in the file at `path` with `buildNum` located at the line matching `pattern`
+
+    os.chmod(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 0755)
+    fin = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"), 'r')
+    fout = open(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION1"), 'w')
+    for line in fin:
+        line=re.sub("ADLMSDK_VERSION_POINT=[\d]+","ADLMSDK_VERSION_POINT="+os.environ["BuildNum"],line)
+    fout.write(line)
+    fin.close()
+    fout.close()
+    os.remove(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"))
+    os.rename(os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION1"),
+    os.path.join(os.environ["SourcePath"],"develop","global","src","VERSION"))
+
 
 def main():
     updateSconstruct()
