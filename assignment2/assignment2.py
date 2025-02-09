@@ -72,31 +72,34 @@ def updateBuildNumber(path, pattern, buildNum):
     # Update the build number in the file at `path` with `buildNum` located at the line matching `pattern`
 
     tmp_path = path + ".tmp"
+    reg = re.compile(pattern + "[\\d]+")
 
     os.chmod(path, 0o0755)
     fin = open(path, 'r')
     fout = open(tmp_path, 'w')
     for line in fin:
-        line = re.sub("ADLMSDK_VERSION_POINT=[\d]+", "ADLMSDK_VERSION_POINT=" + str(buildNum), line)
+        line = reg.sub(pattern + str(buildNum), line)
         fout.write(line)
     fin.close()
     fout.close()
     os.remove(path)
-    os.rename(tmp_path,path)
+    os.rename(tmp_path, path)
 
 
 def main():
     buildNumber = os.environ["BuildNum"]
-    srcPath = os.path.join(os.environ["SourcePath"],"develop","global","src")
+    srcPath = os.path.join(os.environ["SourcePath"], "develop", "global", "src")
+
     # updateSconstruct()
-    sconstructPath = os.path.join(srcPath,"SConstruct")
+    sconstructPath = os.path.join(srcPath, "SConstruct")
     sconstructPattern = "point\=[\d]+"
     updateBuildNumber(sconstructPath, sconstructPattern, buildNumber)
 
     # updateVersion()
-    versionPath = os.path.join(srcPath,"VERSION")
+    versionPath = os.path.join(srcPath, "VERSION")
     versionPattern = "ADLMSDK_VERSION_POINT=[\d]+"
     updateBuildNumber(versionPath, versionPattern, buildNumber)
+
 
 if __name__ == "__main__":
     main()
