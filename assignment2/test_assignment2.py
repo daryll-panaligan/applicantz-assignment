@@ -23,8 +23,8 @@ def input_file(tmp_path, request):
     return tmp_file_path, request.param[1], tmp_file_result_path
 
 @pytest.mark.parametrize('input_file',
-                         [['VERSION', '', 'VERSION_expected'],
-                          ['SConstruct', '', 'SConstruct_expected']],
+                         [['VERSION', 'ADLMSDK_VERSION_POINT=', 'VERSION_expected'],
+                          ['SConstruct', 'point=', 'SConstruct_expected']],
                          indirect=True)
 def test_update_build_number(input_file):
     path = input_file[0]
